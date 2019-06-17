@@ -1,7 +1,5 @@
 [![Build Status - Master](https://travis-ci.org/rolivieri/fabric-state-manager-ts.svg?branch=master)](https://travis-ci.org/rolivieri/fabric-state-manager-ts/builds)
 
-UNDER CONSTRUCTION!!!!!!!!!!!
-
 # fabric-state-manager-ts
 
 This repository contains a reusable chaincode component, `RemoverCC`, for deleting the records found under a list of namespaces (i.e. composite keys). Thus, this chaincode component can be used to wipe out the world state. The `RemoverCC` chaincode component, written in [TypeScript](https://www.typescriptlang.org/), exposes the following methods:
