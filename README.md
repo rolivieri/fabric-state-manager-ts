@@ -108,14 +108,14 @@ Please remember that Hyperledger Fabric takes into account chaincode components 
 1. Use composition (or inheritance)) to extend the capabilities of your code by referencing the `RemoverCC` structure (which resides in the `fabric-state-manager` package you just imported) in your chaincode component. In this example, we'll use composition:
     
     ```
-    type SampleChaincodeCC struct {      
+    export class SampleChaincodeCC implements ChaincodeInterface {
 
         ...
 
-        //Using inheritance in this sample
-        sm.RemoverCC
+        private removerCC: RemoverCC;
 
-        ...    
+        ...
+        
     }
     ```
 
@@ -123,12 +123,14 @@ Please remember that Hyperledger Fabric takes into account chaincode components 
 
     ```
     // Init initializes chaincode
-    func (t *SampleChaincodeCC) Init(stub shim.ChaincodeStubInterface) pb.Response {
-	
+    public async Init(stub: ChaincodeStub): Promise<ChaincodeResponse> {
+        logger.debug('entering >>> Init');
+
         ...
 
-        namespaces := []string{"namespace1", "namespace2", ... "namespaceN"}			
-        t.Initialize(namespaces)
+        this.removerCC = new RemoverCC();
+        const namespaces = ["namespace1", "namespace2", ... "namespaceN"];	
+        await this.removerCC.Initialize(namespaces);
 
         ...
 
@@ -140,25 +142,25 @@ Please remember that Hyperledger Fabric takes into account chaincode components 
 
     ```
     // Invoke - Entry point for Invocations
-    func (t *StakeholdersChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
-        function, args := stub.GetFunctionAndParameters()
-
-        switch function {
-            case "Function1":
-                return t.Function1(stub, args)
-            case "Function2":
-                return t.Function2(stub, args)
+    public async Invoke(stub: ChaincodeStub): Promise<ChaincodeResponse> {
+        logger.debug('entering >>> Invoke');
+        const funcAndParams = stub.getFunctionAndParameters();
+        switch (funcAndParams.fcn) {
+            case 'Function1':
+                return await this.Function1(stub);
+            case 'Function2':
+                return await this.Function2(stub);
             
             ...
-
-            case "DeleteState":		
-                return t.DeleteState(stub)
             
+            case 'DeleteState':
+                return await this.removerCC.DeleteState(stub);
+
             ...
         }
 
         ...
-
+       
     }
     ```
 
