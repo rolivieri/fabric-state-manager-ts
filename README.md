@@ -1,5 +1,7 @@
 [![Build Status - Master](https://travis-ci.org/rolivieri/fabric-state-manager-ts.svg?branch=master)](https://travis-ci.org/rolivieri/fabric-state-manager-ts/builds)
 
+UNDER CONSTRUCTION!!!!!!!!!!!
+
 # fabric-state-manager-ts
 
 This repository contains a reusable chaincode component, `RemoverCC`, for deleting the records found under a list of namespaces (i.e. composite keys). Thus, this chaincode component can be used to wipe out the world state. The `RemoverCC` chaincode component, written in [TypeScript](https://www.typescriptlang.org/), exposes the following methods:
@@ -25,27 +27,27 @@ It is strongly recommended to use **macOS** or a **Linux** flavor (such as Ubunt
 $ pwd
 /Users/olivieri/git/fabric-state-manager-ts
 $ ls -la
-total 384
-drwxr-xr-x   17 olivieri  staff     544 Jun 17 16:40 .
-drwxr-xr-x   60 olivieri  staff    1920 Jun 14 15:01 ..
-drwxr-xr-x   13 olivieri  staff     416 Jun 17 16:51 .git
--rw-r--r--    1 olivieri  staff    1155 Jun 14 15:01 .gitignore
--rw-r--r--    1 olivieri  staff     264 Jun 14 15:01 .npmignore
-drwxr-xr-x    6 olivieri  staff     192 Jun 17 16:40 .nyc_output
--rw-r--r--    1 olivieri  staff     130 Jun 14 15:01 .travis.yml
--rw-r--r--    1 olivieri  staff   11357 Jun 14 15:01 LICENSE
--rw-r--r--    1 olivieri  staff   13742 Jun 17 16:51 README.md
-drwxr-xr-x    6 olivieri  staff     192 Jun 14 15:07 coverage
--rw-r--r--    1 olivieri  staff     324 Jun 14 15:01 deploy_config.json
-drwxr-xr-x  243 olivieri  staff    7776 Jun 17 16:40 node_modules
--rw-r--r--    1 olivieri  staff  138374 Jun 17 16:39 package-lock.json
--rw-r--r--    1 olivieri  staff    1884 Jun 17 16:39 package.json
-drwxr-xr-x    5 olivieri  staff     160 Jun 16 12:28 src
--rw-r--r--    1 olivieri  staff     355 Jun 14 15:01 tsconfig.json
--rw-r--r--    1 olivieri  staff     513 Jun 14 15:01 tslint.json
+total 368
+drwxr-xr-x  14 olivieri  staff     448 Jun 17 17:09 .
+drwxr-xr-x  60 olivieri  staff    1920 Jun 17 17:09 ..
+drwxr-xr-x  13 olivieri  staff     416 Jun 17 17:09 .git
+-rw-r--r--   1 olivieri  staff    1155 Jun 17 17:09 .gitignore
+-rw-r--r--   1 olivieri  staff     264 Jun 17 17:09 .npmignore
+-rw-r--r--   1 olivieri  staff     130 Jun 17 17:09 .travis.yml
+-rw-r--r--   1 olivieri  staff   11357 Jun 17 17:09 LICENSE
+-rw-r--r--   1 olivieri  staff    7581 Jun 17 17:09 README.md
+-rw-r--r--   1 olivieri  staff     324 Jun 17 17:09 deploy_config.json
+-rw-r--r--   1 olivieri  staff  138374 Jun 17 17:09 package-lock.json
+-rw-r--r--   1 olivieri  staff    1884 Jun 17 17:09 package.json
+drwxr-xr-x   5 olivieri  staff     160 Jun 17 17:09 src
+-rw-r--r--   1 olivieri  staff     355 Jun 17 17:09 tsconfig.json
+-rw-r--r--   1 olivieri  staff     513 Jun 17 17:09 tslint.json
 $ npm install
 
 ...
+
+added 403 packages from 1008 contributors and audited 1244 packages in 10.736s
+found 0 vulnerabilities
 
 $ npm run test
 

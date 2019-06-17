@@ -8,6 +8,10 @@
         "node": ">=8",
         "npm": ">=5"
     },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/rolivieri/fabric-state-manager-ts"
+    },
     "scripts": {
         "lint": "tslint -c tslint.json 'src/**/*.ts'",
         "pretest": "npm run lint",
