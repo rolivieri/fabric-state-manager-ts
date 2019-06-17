@@ -1,7 +1,7 @@
 {
-    "name": "mycontract",
+    "name": "RemoverCC",
     "version": "0.0.1",
-    "description": "My Asset Contract",
+    "description": "RemoverCC",
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
     "engines": {
@@ -39,7 +39,8 @@
         "winston": "^3.2.1",
         "ts-node": "^7.0.1",
         "tslint": "^5.11.0",
-        "typescript": "^3.1.6"
+        "typescript": "^3.1.6",
+        "@theledger/fabric-mock-stub": "^4.0.0"
     },
     "nyc": {
         "include": [
@@ -69,7 +70,7 @@
         "all": true,
         "check-coverage": true,
         "statements": 100,
-        "branches": 100,
+        "branches": 85,
         "functions": 100,
         "lines": 100
     }

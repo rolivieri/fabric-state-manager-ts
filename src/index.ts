@@ -15,7 +15,4 @@
  * limitations under the License.
  */
 
-import { MyAssetContract } from './my-asset/my-asset-contract';
-export { MyAssetContract } from './my-asset/my-asset-contract';
-
-export const contracts: any[] = [ MyAssetContract ];
+export { RemoverCC } from './remover-cc/remover-cc';
