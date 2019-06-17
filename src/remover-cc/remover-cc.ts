@@ -6,9 +6,15 @@ const logger = Logger.getLogger('RemoverCC');
 export class RemoverCC implements ChaincodeInterface {
     private namespaces: string[];
 
-    public async Init(stub: ChaincodeStub) {
+    public async Init(stub: ChaincodeStub): Promise<ChaincodeResponse> {
         logger.debug('entering >>> Init');
-        this.namespaces = stub.getArgs();
+        const namespaces = stub.getArgs();
+        return await this.Initialize(namespaces);
+    }
+
+    public async Initialize(namespaces: string[]): Promise<ChaincodeResponse> {
+        logger.debug('entering >>> Initialize');
+        this.namespaces = namespaces;
         logger.debug('namespaces: ' + this.namespaces.join(','));
         return Shim.success(Buffer.from('RemoverCC initialized Successfully!'));
     }
