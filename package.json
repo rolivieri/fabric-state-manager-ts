@@ -1,7 +1,7 @@
 {
-    "name": "RemoverCC",
+    "name": "fabric-state-manager",
     "version": "0.0.1",
-    "description": "RemoverCC",
+    "description": "fabric-state-manager",
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
     "engines": {
