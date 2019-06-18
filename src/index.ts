@@ -15,4 +15,5 @@
  * limitations under the License.
  */
 
-export { RemoverCC } from './remover-cc/remover-cc';
+import cc = require('./remover-cc/remover-cc');
+export = cc;
