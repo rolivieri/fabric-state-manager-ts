@@ -106,6 +106,12 @@ Please remember that Hyperledger Fabric takes into account chaincode components 
 1. Use composition (or inheritance)) to extend the capabilities of your code by referencing the `RemoverCC` structure (which resides in the `fabric-state-manager` package you just imported) in your chaincode component. In this example, we'll use composition:
     
     ```
+    ...
+
+    import { RemoverCC } from "@blockchainlabs/fabric-state-manager";
+
+    ...
+
     export class SampleChaincodeCC implements ChaincodeInterface {
 
         ...
