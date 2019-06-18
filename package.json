@@ -1,7 +1,7 @@
 {
-    "name": "fabric-state-manager",
+    "name": "@blockchainlabs/fabric-state-manager",
     "version": "0.0.1",
-    "description": "fabric-state-manager",
+    "description": "A reusable chaincode component for deleting data from the world state.",
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
     "engines": {
