@@ -38,11 +38,19 @@ describe('RemoverContract', () => {
             await mockStub.mockInit(TxID, Namespaces);
             const result = await mockStub.mockInvoke(TxID, ['Ping']);
             assert.equal(result.status, 200);
-            assert.equal(result.payload.toString(), 'Ping to chaincode successful');
+            assert.equal(result.payload.toString(), 'Ping to chaincode successful.');
         });
     });
 
-    describe('#Unknown', () => {
+    describe('#No namespaces provided', () => {
+        it('should fail', async () => {
+            const result = await mockStub.mockInit(TxID, []);
+            assert.equal(result.status, 500);
+            assert.equal(result.message.toString(), 'No namespaces provided to the Init() method.');
+        });
+    });
+
+    describe('#Unknown Method', () => {
         it('should fail', async () => {
             await mockStub.mockInit(TxID, Namespaces);
             const result = await mockStub.mockInvoke(TxID, ['Unknown']);

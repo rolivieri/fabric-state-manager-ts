@@ -31,6 +31,9 @@ export class RemoverCC implements ChaincodeInterface {
 
     public async Initialize(namespaces: string[]): Promise<ChaincodeResponse> {
         logger.debug('entering >>> Initialize');
+        if (namespaces.length === 0) {
+            return Shim.error(Buffer.from('No namespaces provided to the Init() method.'));
+        }
         this.namespaces = namespaces;
         logger.debug('namespaces: ' + this.namespaces.join(','));
         return Shim.success(Buffer.from('RemoverCC initialized Successfully!'));
@@ -52,7 +55,7 @@ export class RemoverCC implements ChaincodeInterface {
 
     private async Ping(stub: ChaincodeStub): Promise<ChaincodeResponse> {
         logger.debug('entering >>> Ping');
-        return Shim.success(Buffer.from('Ping to chaincode successful'));
+        return Shim.success(Buffer.from('Ping to chaincode successful.'));
     }
 
     private async DeleteState(stub: ChaincodeStub): Promise<ChaincodeResponse> {
