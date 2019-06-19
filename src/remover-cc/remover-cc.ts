@@ -25,7 +25,7 @@ export class RemoverCC implements ChaincodeInterface {
 
     public async Init(stub: ChaincodeStub): Promise<ChaincodeResponse> {
         logger.debug('entering >>> Init');
-        const namespaces = stub.getArgs();
+        const namespaces = stub.getFunctionAndParameters().params;
         return await this.Initialize(namespaces);
     }
 
@@ -35,7 +35,7 @@ export class RemoverCC implements ChaincodeInterface {
             return Shim.error(Buffer.from('No namespaces provided to the Init() method.'));
         }
         this.namespaces = namespaces;
-        logger.debug('namespaces: ' + this.namespaces.join(','));
+        logger.info('Namespaces: ' + this.namespaces.join(','));
         return Shim.success(Buffer.from('RemoverCC initialized Successfully!'));
     }
 

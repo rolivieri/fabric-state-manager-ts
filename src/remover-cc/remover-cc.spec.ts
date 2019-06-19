@@ -24,18 +24,18 @@ const assert = chai.assert;
 describe('RemoverContract', () => {
     let mockStub: ChaincodeMockStub;
     let chaincode: RemoverCC;
-    const Namespaces = ['namespace1', 'namespace2', 'namespace3'];
-    // const Namespaces = ['namespace1'];
+    let namespaces: string[];
     const TxID = 'mockTxID';
 
     beforeEach(() => {
+        namespaces = ['namespace1', 'namespace2', 'namespace3'];
         chaincode = new RemoverCC();
         mockStub = new ChaincodeMockStub('RemoverCCStub', chaincode);
     });
 
     describe('#Ping', () => {
         it('should ping successfully', async () => {
-            await mockStub.mockInit(TxID, Namespaces);
+            await mockStub.mockInit(TxID, namespaces);
             const result = await mockStub.mockInvoke(TxID, ['Ping']);
             assert.equal(result.status, 200);
             assert.equal(result.payload.toString(), 'Ping to chaincode successful.');
@@ -52,7 +52,7 @@ describe('RemoverContract', () => {
 
     describe('#Unknown Method', () => {
         it('should fail', async () => {
-            await mockStub.mockInit(TxID, Namespaces);
+            await mockStub.mockInit(TxID, namespaces);
             const result = await mockStub.mockInvoke(TxID, ['Unknown']);
             assert.equal(result.status, 500);
         });
@@ -61,7 +61,7 @@ describe('RemoverContract', () => {
     describe('#DeleteState', () => {
         it('should delete the records from namespaces', async () => {
             // Init chaincode
-            await mockStub.mockInit(TxID, Namespaces);
+            await mockStub.mockInit(TxID, namespaces);
             // Define dummy record
             const dummyRecord = '{"id": "{0}", "Company Code": "IBM"}';
             const numberOfRecordsPerNamespace = 10;
@@ -71,7 +71,7 @@ describe('RemoverContract', () => {
                 const recordID = id.toString();
                 const record = dummyRecord.replace('{0}', recordID);
                 const recordAsBytes = Buffer.from(record);
-                Namespaces.forEach(async (namespace) => {
+                for (const namespace of namespaces) {
                     const recordCompositeKey = mockStub.createCompositeKey(namespace, [recordID]);
                     // console.log('About to insert dummy record: "' + record + '" into namespace: "' + namespace + '".');
                     // Need a dummy transaction before we can call the stub.PutState() method
@@ -82,7 +82,7 @@ describe('RemoverContract', () => {
                     mockStub.mockTransactionEnd(TxID);
                     // const t = await mockStub.getState(recordCompositeKey);
                     // console.log('Inserted dummy record into namespace.');
-                });
+                }
             }
 
             // Now we are ready to test our API to ensure it can delete records as expected
@@ -93,7 +93,7 @@ describe('RemoverContract', () => {
             for (let id = 0; id < numberOfRecordsPerNamespace; id++) {
                 const recordID = id.toString();
                 // Create composite key using namespace (prefix) for record
-                Namespaces.forEach(async (namespace) => {
+                for (const namespace of namespaces) {
                     const recordCompositeKey = mockStub.createCompositeKey(namespace, [recordID]);
                     // Try to get data directly from world state (there should be none)
                     // Record should not exist
@@ -102,10 +102,10 @@ describe('RemoverContract', () => {
                     // Record should exist
                     const recordAsBytesBySimpleKey = mockStub.state[recordID];
                     assert.isNotNull(recordAsBytesBySimpleKey);
-                });
+                }
             }
 
-            const expectedNumberOfRecordsDeleted = numberOfRecordsPerNamespace * Namespaces.length;
+            const expectedNumberOfRecordsDeleted = numberOfRecordsPerNamespace * namespaces.length;
             console.log('Summary: Expected number of deleted records = ' + expectedNumberOfRecordsDeleted + ', actual number of deleted records from chain = ' + actualNumberOfRecordsDeleted + '.');
             assert.equal(expectedNumberOfRecordsDeleted.toString(), actualNumberOfRecordsDeleted, 'Number of deleted records does NOT match.');
         });
