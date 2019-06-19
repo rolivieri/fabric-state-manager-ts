@@ -103,7 +103,13 @@ $
 ### Development
 Please remember that Hyperledger Fabric takes into account chaincode components when partitioning the data stored in a channel. In other words, a chaincode component won't be able to read and/or delete any state that has been saved by another chaincode component on the same channel. Because of this, you cannot just deploy this code as a chaincode component and expect it to have access to the data written by another chaincode. Therefore, to leverage the code in this repository, you can follow the following steps:
 
-1. Use composition (or inheritance)) to extend the capabilities of your code by referencing the `RemoverCC` structure (which resides in the `fabric-state-manager` package you just imported) in your chaincode component. In this example, we'll use composition:
+1. Configure your Node.js application to use this component; from the root folder of your application, execute the following command:
+
+    ```
+    npm i @blockchainlabs/fabric-state-manager --save
+    ```
+
+1. Use composition (or inheritance)) to extend the capabilities of your code by referencing the `RemoverCC` class (which resides in the `fabric-state-manager` module you just imported) in your chaincode component. In this example, we'll use composition:
     
     ```
     ...
@@ -123,7 +129,7 @@ Please remember that Hyperledger Fabric takes into account chaincode components 
     }
     ```
 
-2. From the `Init()` method in your chaincode component, invoke the `Initialize(...)` method. The invocation to the `Initialize()` method from your chaincode should pass an array of strings that contains the namespaces whose data should be deleted from the world state.  Ex:
+1. From the `Init()` method in your chaincode component, invoke the `Initialize(...)` method. The invocation of the `Initialize()` method from your chaincode should pass an array of strings that contains the namespaces whose data should be deleted from the world state. Ex:
 
     ```
     // Init initializes chaincode
@@ -138,11 +144,11 @@ Please remember that Hyperledger Fabric takes into account chaincode components 
 
         ...
 
-        return shim.Success(nil)
+        return Shim.success();
     }
     ```
 
-3. Add the `DeleteState(...)` method to the `Invoke()` method of your chaincode component.  Ex:
+1. Add the `DeleteState(...)` method to the `Invoke()` method of your chaincode component.  Ex:
 
     ```
     // Invoke - Entry point for Invocations
@@ -168,4 +174,4 @@ Please remember that Hyperledger Fabric takes into account chaincode components 
     }
     ```
 
-4. Whenever there is the need to reset the world state, your Fabric client application should call the `DeleteState()` method which will then read the namespaces provided to the `Initialize()` method; the invocation of the `DeleteState()` method will result in the deletion of all the records found under those namespaces.
+1. Whenever there is the need to reset the world state, your Fabric client application should call the `DeleteState()` method which will then read the namespaces provided to the `Initialize()` method; the invocation of the `DeleteState()` method will result in the deletion of all the records found under those namespaces.
