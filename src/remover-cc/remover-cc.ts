@@ -53,12 +53,12 @@ export class RemoverCC implements ChaincodeInterface {
         return Shim.error(Buffer.from(errorMsg));
     }
 
-    private async Ping(stub: ChaincodeStub): Promise<ChaincodeResponse> {
+    public async Ping(stub: ChaincodeStub): Promise<ChaincodeResponse> {
         logger.debug('entering >>> Ping');
         return Shim.success(Buffer.from('Ping to chaincode successful.'));
     }
 
-    private async DeleteState(stub: ChaincodeStub): Promise<ChaincodeResponse> {
+    public async DeleteState(stub: ChaincodeStub): Promise<ChaincodeResponse> {
         logger.debug('entering >>> deleteState');
         logger.info('Deleting data for namespaces: ' + this.namespaces.join(','));
         let totalRecordsDeleted = 0;

@@ -1,6 +1,6 @@
 {
     "name": "@blockchainlabs/fabric-state-manager",
-    "version": "0.0.12",
+    "version": "0.0.13",
     "description": "A reusable chaincode component for deleting data from the world state.",
     "main": "dist/index.js",
     "typings": "dist/index.d.ts",
@@ -24,18 +24,18 @@
     "author": "Ricardo Olivieri",
     "license": "Apache-2.0",
     "dependencies": {
-        "fabric-shim": "1.4.1"
+        "fabric-shim": "1.4.2"
     },
     "devDependencies": {
         "@types/chai": "^4.1.7",
-        "@types/mocha": "^5.2.5",
-        "@types/node": "^10.12.10",
+        "@types/mocha": "^5.2.7",
+        "@types/node": "^10.14.15",
         "chai": "^4.2.0",
         "mocha": "^5.2.0",
-        "nyc": "^14.0.0",
+        "nyc": "^14.1.1",
         "ts-node": "^7.0.1",
-        "tslint": "^5.11.0",
-        "typescript": "^3.1.6",
+        "tslint": "^5.18.0",
+        "typescript": "^3.5.3",
         "@theledger/fabric-mock-stub": "^4.0.0"
     },
     "nyc": {
