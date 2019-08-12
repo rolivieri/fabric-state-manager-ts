@@ -8,6 +8,8 @@ This repository contains a reusable chaincode component, `RemoverCC`, for deleti
 
 Though more than likely you won't be resetting the world state in a production environment, doing so in a development, test, or staging environment or as part of a PoC application is more than common.
 
+Finally, please be aware that this code stores the namespace names (from which records should be deleted) in the blockchain under the `fabric-state-manager-ts` key. Therefore, please make sure you are **not** using this key to store any values on the blockchain.
+
 ## Compiling and running test cases
 
 ### Platform
@@ -140,7 +142,7 @@ Please remember that Hyperledger Fabric takes into account chaincode components 
 
         this.removerCC = new RemoverCC();
         const namespaces = ["namespace1", "namespace2", ... "namespaceN"];	
-        await this.removerCC.Initialize(namespaces);
+        await this.removerCC.Initialize(stub, namespaces);
 
         ...
 

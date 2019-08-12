@@ -21,21 +21,23 @@ import Logger from '../util/logger';
 const logger = Logger.getLogger('RemoverCC');
 
 export class RemoverCC implements ChaincodeInterface {
-    private namespaces: string[];
+    public readonly key = 'fabric-state-manager-ts';
 
     public async Init(stub: ChaincodeStub): Promise<ChaincodeResponse> {
         logger.debug('entering >>> Init');
         const namespaces = stub.getFunctionAndParameters().params;
-        return await this.Initialize(namespaces);
+        return await this.Initialize(stub, namespaces);
     }
 
-    public async Initialize(namespaces: string[]): Promise<ChaincodeResponse> {
+    public async Initialize(stub: ChaincodeStub, namespaces: string[]): Promise<ChaincodeResponse> {
         logger.debug('entering >>> Initialize');
         if (namespaces.length === 0) {
             return Shim.error(Buffer.from('No namespaces provided to the Init() method.'));
         }
-        this.namespaces = namespaces;
-        logger.info('Namespaces: ' + this.namespaces.join(','));
+        // Store namespaces in the blockchain
+        const namespacesStr = namespaces.join(',');
+        logger.info('Namespaces: ' + namespacesStr);
+        stub.putState(this.key, Buffer.from(namespacesStr));
         return Shim.success(Buffer.from('RemoverCC initialized Successfully!'));
     }
 
@@ -60,9 +62,11 @@ export class RemoverCC implements ChaincodeInterface {
 
     public async DeleteState(stub: ChaincodeStub): Promise<ChaincodeResponse> {
         logger.debug('entering >>> deleteState');
-        logger.info('Deleting data for namespaces: ' + this.namespaces.join(','));
+        // Get namespaces from the blockchain
+        const namespaces = await stub.getState(this.key);
+        logger.info('Deleting data for namespaces: ' + namespaces);
         let totalRecordsDeleted = 0;
-        for (const namespace of this.namespaces) {
+        for (const namespace of namespaces.toString().split(',')) {
             logger.debug('Deleting data in namespace: ' + namespace);
             totalRecordsDeleted += await this.DeleteRecordsByPartialKey(stub, namespace);
         }

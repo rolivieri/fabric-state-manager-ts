@@ -58,7 +58,7 @@ describe('RemoverContract', () => {
         });
     });
 
-    describe('#DeleteState', () => {
+    describe('#DeleteState - records', () => {
         it('should delete the records from namespaces', async () => {
             // Init chaincode
             await mockStub.mockInit(TxID, namespaces);
@@ -106,6 +106,20 @@ describe('RemoverContract', () => {
             }
 
             const expectedNumberOfRecordsDeleted = numberOfRecordsPerNamespace * namespaces.length;
+            console.log('Summary: Expected number of deleted records = ' + expectedNumberOfRecordsDeleted + ', actual number of deleted records from chain = ' + actualNumberOfRecordsDeleted + '.');
+            assert.equal(expectedNumberOfRecordsDeleted.toString(), actualNumberOfRecordsDeleted, 'Number of deleted records does NOT match.');
+        });
+    });
+
+    describe('#DeleteState - no records', () => {
+        it('no records found under namespaces', async () => {
+            // Init chaincode
+            await mockStub.mockInit(TxID, namespaces);
+            // Now we are ready to test our API to ensure it can delete records as expected
+            const result = await mockStub.mockInvoke(TxID, ['DeleteState']);
+            const actualNumberOfRecordsDeleted = result.payload.toString();
+            console.log('Number of records deleted: ' + actualNumberOfRecordsDeleted);
+            const expectedNumberOfRecordsDeleted = 0;
             console.log('Summary: Expected number of deleted records = ' + expectedNumberOfRecordsDeleted + ', actual number of deleted records from chain = ' + actualNumberOfRecordsDeleted + '.');
             assert.equal(expectedNumberOfRecordsDeleted.toString(), actualNumberOfRecordsDeleted, 'Number of deleted records does NOT match.');
         });
