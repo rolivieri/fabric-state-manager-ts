@@ -124,7 +124,7 @@ Please remember that Hyperledger Fabric takes into account chaincode components 
 
         ...
 
-        private removerCC: RemoverCC;
+        private removerCC = new RemoverCC();
 
         ...
         
@@ -140,7 +140,6 @@ Please remember that Hyperledger Fabric takes into account chaincode components 
 
         ...
 
-        this.removerCC = new RemoverCC();
         const namespaces = ["namespace1", "namespace2", ... "namespaceN"];	
         await this.removerCC.Initialize(stub, namespaces);
 
